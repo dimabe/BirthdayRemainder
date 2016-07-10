@@ -4,14 +4,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class GrettingActivity extends AppCompatActivity {
+public class GreetingActivity extends AppCompatActivity {
 
     private TextView txtSaludo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gretting);
+        setContentView(R.layout.activity_greeting);
         setLabelText();
     }
 

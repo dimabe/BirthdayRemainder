@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Creamos el Intent
-                Intent intent = new Intent(MainActivity.this, GrettingActivity.class);
+                Intent intent = new Intent(MainActivity.this, GreetingActivity.class);
 
                 //Creamos la información a pasar entre actividades
                 Bundle b = new Bundle();
