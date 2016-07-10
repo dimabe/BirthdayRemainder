@@ -1,5 +1,6 @@
 package com.dimabe.birthdayremainder;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,10 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 public class MainActivity extends AppCompatActivity {
 
     /**
@@ -15,11 +20,15 @@ public class MainActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private EditText txtNombre;
+    private Button btnAceptar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setAceptarClick();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -63,5 +72,30 @@ public class MainActivity extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    public void setAceptarClick() {
+        //Obtenemos una referencia a los controles de la interfaz
+        txtNombre = (EditText)findViewById(R.id.txtNombre);
+        btnAceptar = (Button)findViewById(R.id.btnAceptar);
+
+        //Implementamos el evento click del botón
+        btnAceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Creamos el Intent
+                Intent intent = new Intent(MainActivity.this, GrettingActivity.class);
+
+                //Creamos la información a pasar entre actividades
+                Bundle b = new Bundle();
+                b.putString("NOMBRE", txtNombre.getText().toString());
+
+                //Añadimos la información al intent
+                intent.putExtras(b);
+
+                //Iniciamos la nueva actividad
+                startActivity(intent);
+            }
+        });
     }
 }
