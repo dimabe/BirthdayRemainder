@@ -1,6 +1,10 @@
 package com.dimabe.birthdayremainder;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +13,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private GoogleApiClient client;
     private EditText txtNombre;
     private Button btnAceptar;
+    private Button btnAlert;
+
+    private static final int NOTIF_ALERTA_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setAceptarClick();
+        setAlertClick();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -97,5 +106,35 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void setAlertClick(){
+        btnAlert = (Button)findViewById(R.id.btnAlert);
+        //Implementamos el evento click del botón
+        btnAlert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNotification();
+            }
+        });
+    }
+
+    public void openNotification(){
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(MainActivity.this)
+                        .setSmallIcon(android.R.drawable.stat_sys_warning)
+                        .setLargeIcon((((BitmapDrawable)getResources()
+                                .getDrawable(R.drawable.ic_launcher)).getBitmap()))
+                        .setContentTitle("Mensaje de Alerta")
+                        .setContentText("Ejemplo de notificación.")
+                        .setContentInfo("4")
+                        .setTicker("Alerta!");
+
+        Intent notIntent = new Intent(MainActivity.this, MainActivity.class);
+        PendingIntent contIntent =  PendingIntent.getActivity(MainActivity.this, 0, notIntent, 0);
+        mBuilder.setContentIntent(contIntent);
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(NOTIF_ALERTA_ID, mBuilder.build());
     }
 }
