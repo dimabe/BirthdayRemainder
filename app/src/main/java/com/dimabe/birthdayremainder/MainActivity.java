@@ -13,7 +13,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -123,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(MainActivity.this)
                         .setSmallIcon(android.R.drawable.stat_sys_warning)
-                        .setLargeIcon((((BitmapDrawable)getResources()
-                                .getDrawable(R.drawable.ic_launcher)).getBitmap()))
                         .setContentTitle("Mensaje de Alerta")
                         .setContentText("Ejemplo de notificación.")
                         .setContentInfo("4")
